@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Workspace {
+  id         String   @id @default(cuid())
+  name       String
+  clientName String?
+  niche      String?
+  phase      String   @default("DIRECTION") // DIRECTION | VALIDATION | SCALING
+  context    String   @default("")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  itemStates WorkspaceItemState[]
+}
+
+model ProtocolModule {
+  id        String            @id
+  name      String
+  sortOrder Int
+  sections  ProtocolSection[]
+}
+
+model ProtocolSection {
+  id        String         @id @default(cuid())
+  moduleId  String
+  name      String
+  sortOrder Int
+  module    ProtocolModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  items     ProtocolItem[]
+
+  @@index([moduleId])
+}
+
+model ProtocolItem {
+  id        String               @id @default(cuid())
+  sectionId String
+  title     String
+  action    String?
+  sortOrder Int
+  section   ProtocolSection      @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  states    WorkspaceItemState[]
+
+  @@index([sectionId])
+}
+
+model WorkspaceItemState {
+  id             String       @id @default(cuid())
+  workspaceId    String
+  protocolItemId String
+  status         String       @default("TODO") // TODO | IN_PROGRESS | DONE | BLOCKED
+  notes          String       @default("")
+  updatedAt      DateTime     @updatedAt
+  workspace      Workspace    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  item           ProtocolItem @relation(fields: [protocolItemId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, protocolItemId])
+  @@index([workspaceId])
+}
