@@ -79,3 +79,17 @@ npm run db:reset
 ## License
 
 Private — Big Pipeline.
+
+---
+
+## Marketing landing page (`landing/`)
+
+Long-form bigpipeline.io sales page (VSL slot + Direction Session CTA).
+
+```bash
+cd landing
+npm install
+npm run dev
+```
+
+Env: `NEXT_PUBLIC_CALENDAR_URL`, `NEXT_PUBLIC_VSL_URL`

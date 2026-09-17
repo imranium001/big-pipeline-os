@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bp-bg: #0b0b0c;
+  --bp-bg-elevated: #141416;
+  --bp-surface: #1a1a1d;
+  --bp-border: #2c2c30;
+  --bp-border-strong: #3d3d42;
+  --bp-text: #f4f1ea;
+  --bp-text-muted: #9b968c;
+  --bp-text-soft: #c8c2b6;
+  --bp-accent: #d4a017;
+  --bp-accent-hover: #e8b42a;
+  --bp-accent-dim: rgba(212, 160, 23, 0.12);
+  --bp-danger: #c45c3e;
+  --bp-success: #3d9a6a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--bp-text);
+  background: var(--bp-bg);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--bp-accent);
+  color: #0b0b0c;
+}
+
+@layer components {
+  .container-bp {
+    @apply mx-auto w-full max-w-3xl px-5 sm:px-6 lg:max-w-4xl;
+  }
+
+  .container-wide {
+    @apply mx-auto w-full max-w-5xl px-5 sm:px-6;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-6 py-3.5 text-base font-semibold tracking-tight transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--bp-accent)];
+    background: var(--bp-accent);
+    color: #0b0b0c;
+  }
+
+  .btn-primary:hover {
+    background: var(--bp-accent-hover);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border px-6 py-3.5 text-base font-medium tracking-tight transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--bp-accent)];
+    border-color: var(--bp-border-strong);
+    color: var(--bp-text);
+    background: transparent;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--bp-accent);
+    color: var(--bp-accent);
+  }
+
+  .section-label {
+    @apply mb-3 text-xs font-semibold uppercase tracking-[0.18em];
+    color: var(--bp-accent);
+  }
+
+  .prose-bp p {
+    @apply mb-4 text-lg leading-relaxed;
+    color: var(--bp-text-soft);
+  }
+
+  .prose-bp strong {
+    color: var(--bp-text);
+    font-weight: 600;
+  }
+
+  .card-bp {
+    @apply rounded-lg border p-6 sm:p-8;
+    background: var(--bp-surface);
+    border-color: var(--bp-border);
+  }
+
+  .divider-bp {
+    @apply my-16 border-t sm:my-20;
+    border-color: var(--bp-border);
+  }
+}
+
+/* Sticky mobile CTA: pad bottom so content isn't hidden */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: 4.5rem;
+  }
+}
